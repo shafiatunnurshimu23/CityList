@@ -75,5 +75,32 @@ public class MainActivityTest {
         onData(anything()).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click()); //Check the content on the list - no content in this case
         Espresso.pressBack(); //Back button
     }
+    /*
+    assignment
+     */
+    @Test
+    public void assignmentTest(){
+        onView(withId(R.id.button_add)).perform(click()); //Click add button to add a city to the list
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton")); //Type a city name
+        onView(withId(R.id.button_confirm)).perform(click());//Confirm the city name and add to the list
+
+        onView(withId(R.id.button_add)).perform(click()); //Click add button to add a city to the list
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Bogura")); //Type a city name
+        onView(withId(R.id.button_confirm)).perform(click());//Confirm the city name and add to the list
+
+        onData(anything()).inAdapterView(withId(R.id.city_list)).atPosition(1).perform(click());//Check the content on the list
+
+        //1.checking  whether activity correctly switched
+        onView(withId(R.id.show_acticity_id)).check(matches(isDisplayed())); //UI should change to new activity "show_activirty"
+
+        //2.Test whether the city name is consistent
+        onView(withText("Bogura")).check(matches(isDisplayed()));//Check the name on the screen
+
+        //3.Test back button
+         onView(withId(R.id.back_button)).perform(click());  //click back button to go back to mainactivity
+
+        //checking  whether activity correctly switched
+         onView(withId(R.id.main_activity)).check(matches(isDisplayed()));//Check the name on the screen
+    }
 
 }
